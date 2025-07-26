@@ -1,12 +1,13 @@
+**ProMessenger** by Abdumalik-ProDev aka **ProDev**.
 **📨 ProMessenger** — Real-Time Messaging Platform
-ProMessenger is a scalable, real-time messaging platform for both private and group communication. Built with modern microservice architecture, it leverages Spring Boot, WebSocket, MongoDB, PostgreSQL, Kafka, Docker, and OAuth2 security to deliver a seamless and secure chat experience.
+ProMessenger is a scalable, real-time messaging platform for both private and group communication. Built with modern microservice architecture, it leverages Spring Boot, Spring Security, Spring Cloud, WebSocket, RESTful APIs, MongoDB, Redis, PostgreSQL, Grafana (Loki), Kafka, Docker, and OAuth 2.0 security to deliver a seamless and secure chat experience.
 
 ⚙️ Tech Stack
 Layer	Technology
 🧠 Backend:	Java 21, Spring Boot, Spring Security, OAuth2, Spring Cloud
 💬 Messaging:	WebSocket, STOMP, Kafka
-🛢️ Databases:	PostgreSQL (SQL), MongoDB (NoSQL), Redis
-🐳 DevOps	Docker, Docker Compose, Jib
+🛢️ Databases:	PostgreSQL (SQL), MongoDB (NoSQL), Redis(Caches)
+🐳 DevOps:	Docker, Docker Compose, Jib
 🔐 Security:	JWT, OAuth2, IAM, RBAC
 🧪 Docs & Tools:	Swagger/OpenAPI, Lombok, MapStruct
 
@@ -41,7 +42,7 @@ docker run -d -p 27017:27017 --name mongo mongo
 🔐 Authentication
 OAuth2 Login via GitHub, Google, etc.
 
-JWT token issued post OAuth login
+JWT token issued post-OAuth login
 
 IAM support for role-based restrictions
 
@@ -58,8 +59,6 @@ Kafka is used for async message persistence or queueing
 
 MongoDB stores chat history, searchable via REST
 
-📷 Screenshots (optional)
-Add UI preview or architecture diagram if available.
 
 👨‍💻 Author
 Abdumalik-ProDev aka ProDev
