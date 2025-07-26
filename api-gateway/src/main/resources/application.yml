@@ -1,0 +1,83 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  data:
+    redis:
+      host: ${REDIS_HOST:localhost}
+      port: ${REDIS_PORT:6379}
+  cloud:
+    gateway:
+      default-filters:
+        # Apply rate limiting to all routes by default
+        - name: RequestRateLimiter
+          args:
+            key-resolver: "#{@ipKeyResolver}"
+            redis-rate-limiter:
+              replenishRate: 20 # Default rate limit
+              burstCapacity: 40
+      routes:
+        - id: user-service-auth
+          uri: lb://user-service
+          predicates:
+            - Path=/api/auth/**, /oauth2/**
+          filters:
+            # More lenient rate limit for auth endpoints
+            - name: RequestRateLimiter
+              args:
+                key-resolver: "#{@ipKeyResolver}"
+                redis-rate-limiter.replenishRate: 15
+                redis-rate-limiter.burstCapacity: 30
+        - id: user-service-users
+          uri: lb://user-service
+          predicates:
+            - Path=/api/users/**
+        - id: post-service
+          uri: lb://post-service
+          predicates:
+            - Path=/api/posts/**
+        - id: graph-service
+          uri: lb://graph-service
+          predicates:
+            - Path=/api/graph/**
+        - id: feed-service
+          uri: lb://feed-service
+          predicates:
+            - Path=/api/feeds/**
+        - id: notification-service-api
+          uri: lb://notification-service
+          predicates:
+            - Path=/api/notifications/**
+        - id: notification-service-ws
+          uri: lb://notification-service
+          predicates:
+            - Path=/ws/notifications/**
+        - id: chat-service-api
+          uri: lb://chat-service
+          predicates:
+            - Path=/api/chat/**
+        - id: chat-service-ws
+          uri: lb://chat-service
+          predicates:
+            - Path=/ws/chat/**
+        - id: search-service
+          uri: lb://search-service
+          predicates:
+            - Path=/api/search/**
+
+# Eureka Client Configuration
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+# Custom properties for JWT validation
+app:
+  jwt:
+    secret: "ProMessengerWasCreatedByMiddleJavaDev->Abdumalik-ProDev;HeMasterMicroservicesAndCloudNativePlatforms;HeIsTheCEO->ProSports,ProWay,ProStudyAndUpcomingPlatforms;I`am recommendToConnectWithHimOn->LinkedIn<-And->GitHub<-And->Instagram<-;"
+  cors:
+    allowed-origins: "http://localhost:3000" # Example for a React frontend

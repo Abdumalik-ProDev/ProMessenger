@@ -1,0 +1,73 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: user-service
+  datasource:
+    url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:user_db}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASS:root}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update # In production, use a migration tool like Flyway or Liquibase
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        format_sql: true
+  # Added Kafka producer configuration
+  kafka:
+    producer:
+      bootstrap-servers: ${KAFKA_BROKERS:localhost:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+  # Added OAuth2 client configuration
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID} # Must be set as an environment variable
+            client-secret: ${GOOGLE_CLIENT_SECRET} # Must be set as an environment variable
+            scope:
+              - email
+              - profile
+        provider:
+          google:
+            authorization-uri: https://accounts.google.com/o/oauth2/v2/auth
+            token-uri: https://oauth2.googleapis.com/token
+            user-info-uri: https://www.googleapis.com/oauth2/v3/userinfo
+            user-name-attribute: sub
+
+# Eureka Client Configuration for Service Discovery
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
+  instance:
+    preferIpAddress: true
+
+# Custom properties
+app:
+  # JWT properties
+  jwt:
+    secret: "ProMessengerWasCreatedByMiddleJavaDev->Abdumalik-ProDev;HeMasterMicroservicesAndCloudNativePlatforms;HeIsTheCEO->ProSports,ProWay,ProStudyAndUpcomingPlatforms;I`am recommendToConnectWithHimOn->LinkedIn<-And->GitHub<-And->Instagram<-;"
+    expiration:
+      access-token: 86400000 # 1 day in ms
+      refresh-token: 604800000 # 7 days in ms
+  # OAuth2 properties
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000/oauth2/redirect # Example for a React frontend
+  # Kafka topics
+  kafka:
+    topics:
+      user-events: "user.events"
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
