@@ -1,4 +1,4 @@
-📨 ProMessenger — Real-Time Messaging Platform
+**📨 ProMessenger** — Real-Time Messaging Platform
 ProMessenger is a scalable, real-time messaging platform for both private and group communication. Built with modern microservice architecture, it leverages Spring Boot, WebSocket, MongoDB, PostgreSQL, Kafka, Docker, and OAuth2 security to deliver a seamless and secure chat experience.
 
 ⚙️ Tech Stack
