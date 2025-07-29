@@ -17,7 +17,7 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.trusted.packages: "com.insta.clone.graphservice.dto"
+        spring.json.trusted.packages: "abdumalik.prodev.graphservice.dto"
         spring.json.use.type.headers: false
 
 # Eureka Client Configuration

@@ -6,8 +6,8 @@ spring:
     name: user-service
   datasource:
     url: jdbc:postgresql://${DB_HOST:localhost}:${DB_PORT:5432}/${DB_NAME:user_db}
-    username: ${DB_USER:postgres}
-    password: ${DB_PASS:root}
+    username: ${DB_USER:user}
+    password: ${DB_PASS:password}
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
