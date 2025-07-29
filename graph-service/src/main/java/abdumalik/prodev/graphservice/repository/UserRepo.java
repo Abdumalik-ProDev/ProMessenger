@@ -1,6 +1,7 @@
 package abdumalik.prodev.graphservice.repository;
 
 import abdumalik.prodev.graphservice.model.UserNode;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 import org.springframework.data.repository.query.Param;
@@ -11,6 +12,7 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
+@EnableJpaRepositories
 public interface UserRepo extends Neo4jRepository<UserNode, UUID> {
 
     Optional<UserNode> findByUserId(UUID userId);

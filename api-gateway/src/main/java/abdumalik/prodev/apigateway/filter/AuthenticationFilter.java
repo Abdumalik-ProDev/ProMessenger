@@ -2,6 +2,7 @@ package abdumalik.prodev.apigateway.filter;
 
 import abdumalik.prodev.apigateway.util.JwtUtil;
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -12,16 +13,11 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
+@RequiredArgsConstructor
 public class AuthenticationFilter extends AbstractGatewayFilterFactory<AuthenticationFilter.Config> {
 
     private final RouteValidator validator;
     private final JwtUtil jwtUtil;
-
-    public AuthenticationFilter(RouteValidator validator, JwtUtil jwtUtil) {
-        super(Config.class);
-        this.validator = validator;
-        this.jwtUtil = jwtUtil;
-    }
 
     @Override
     public GatewayFilter apply(Config config) {
